@@ -775,12 +775,20 @@ function render(){
     slot.className = 'slot';
     slot.dataset.foundation = idx;
     makeTappable(slot, () => onFoundationSlotClick(idx));
+    if(pile.length > 1){
+      const under = pile[pile.length-2];
+      const du = getCardEl(under);
+      du.style.top = '0px';
+      du.style.left = '0px';
+      du.style.zIndex = 0;
+      slot.appendChild(du);
+    }
     if(pile.length > 0){
       const top = pile[pile.length-1];
       const d = getCardEl(top);
       d.style.top = '0px';
       d.style.left = '0px';
-      d.style.zIndex = '';
+      d.style.zIndex = 1;
       if(isSelectedCard('foundation', idx)) d.classList.add('selected');
       slot.appendChild(d);
     }
