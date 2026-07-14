@@ -803,16 +803,20 @@ function render(){
     const colEl = document.createElement('div');
     colEl.className = 'column';
     colEl.dataset.col = ci;
-    if(col.length === 0){
-      colEl.classList.add('slot');
-      colEl.style.height = '93px';
-      makeTappable(colEl, () => onEmptyColumnClick(ci));
-    }
+
+    const baseSlot = document.createElement('div');
+    baseSlot.className = 'slot';
+    baseSlot.style.position = 'absolute';
+    baseSlot.style.top = '0px';
+    baseSlot.style.left = '0px';
+    makeTappable(baseSlot, () => onEmptyColumnClick(ci));
+    colEl.appendChild(baseSlot);
+
     col.forEach((c, cardIdx) => {
       const d = getCardEl(c);
       d.style.top = (cardIdx * STACK_OFFSET) + 'px';
       d.style.left = '0px';
-      d.style.zIndex = cardIdx;
+      d.style.zIndex = cardIdx + 1;
       if(c.faceUp && isSelectedCard('tableau', ci, cardIdx)) d.classList.add('selected');
       colEl.appendChild(d);
       colEl.style.minHeight = (cardIdx*STACK_OFFSET + CARD_H) + 'px';
