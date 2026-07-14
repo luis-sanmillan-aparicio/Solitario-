@@ -576,8 +576,8 @@ function makeDraggable(el, cardId){
         const wasteCard = document.querySelector('#waste .card:last-child');
         if(wasteCard) sourceEls = [wasteCard];
       } else if(source === 'foundation'){
-        const foundCard = document.querySelectorAll('.panel-foundations .slot')[col]?.querySelector('.card');
-        if(foundCard) sourceEls = [foundCard];
+        const foundCards = document.querySelectorAll('.panel-foundations .slot')[col]?.querySelectorAll('.card');
+        if(foundCards && foundCards.length) sourceEls = [foundCards[foundCards.length-1]];
       } else {
         const colEl = document.querySelectorAll('.column')[col];
         sourceEls = Array.from(colEl.querySelectorAll('.card')).slice(cardIndex);
