@@ -58,6 +58,19 @@
     touch-action: manipulation;
   }
   button#undoBtn:disabled { opacity: 0.4; }
+  button#newGameBtn {
+    min-width: 150px;
+    white-space: nowrap;
+  }
+  button#newGameBtn.win {
+    animation: blink 0.8s ease-in-out infinite;
+    font-size: 10.5px;
+    letter-spacing: -0.02em;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
   .slot {
     width: var(--card-w, 62px);
     height: var(--card-h, 93px);
@@ -256,6 +269,10 @@ function updateCardSize(){
 }
 
 function newGame(){
+  const newGameBtn = document.getElementById('newGameBtn');
+  newGameBtn.textContent = 'NUEVA PARTIDA';
+  newGameBtn.classList.remove('win');
+
   const deck = shuffle(makeDeck());
   const tableau = [];
   for(let c=0;c<7;c++){
@@ -433,7 +450,9 @@ function checkWin(){
   if(total === 40){
     state.ganado = true;
     clearInterval(timerInterval);
-    document.getElementById('msg').textContent = '¡SOLITARIO COMPLETADO! 🎉';
+    const btn = document.getElementById('newGameBtn');
+    btn.textContent = 'COMPLETO NUEVA PARTIDA';
+    btn.classList.add('win');
   }
 }
 
